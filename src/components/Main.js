@@ -24,6 +24,7 @@ export default function Main() {
             //TO DO adicionar validacao no login para caso existir o token no localstorage permanecer logado
             navigate("/");
         }
+         // eslint-disable-next-line
     }, []);
 
     useEffect(() => {
