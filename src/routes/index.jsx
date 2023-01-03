@@ -16,7 +16,7 @@ function RoutesApp() {
       <Routes>
 
         <Route path='/' element={<SignIn />} />
-        <Route path='/home' element={<Home />} />
+        <Route path='/timeline' element={<Home />} />
         {/* <Route path='/signUp' element={<SignUp />} /> */}
 
         <Route path='*' element={<NotFound />} />
