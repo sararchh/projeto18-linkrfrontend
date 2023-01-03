@@ -1,5 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
+import Home from '../pages/home';
 
 import SignIn from '../pages/signIn';
 
@@ -15,6 +16,7 @@ function RoutesApp() {
       <Routes>
 
         <Route path='/' element={<SignIn />} />
+        <Route path='/home' element={<Home />} />
         {/* <Route path='/signUp' element={<SignUp />} /> */}
 
         <Route path='*' element={<NotFound />} />
