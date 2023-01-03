@@ -1,16 +1,30 @@
 import { useState, useEffect } from "react";
+
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import CreatePost from "./CreatePost";
 import axios from "axios";
 
+import CreatePost from "./CreatePost";
+
 export default function Main() {
-    const [posts, setPosts] = useState(null)
+    const navigate = useNavigate();
+
+    const [posts, setPosts] = useState(null);
 
     /*const config = {
         headers: {
              Authorization: `Bearer ${ tokenOnLocalStorage }`,
          },
      };*/
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            //TO DO adicionar validacao no login para caso existir o token no localstorage permanecer logado
+            navigate("/");
+        }
+    }, []);
 
     useEffect(() => {
 
@@ -29,11 +43,11 @@ export default function Main() {
             <Feed>
                 <p>timeline</p>
                 <CreatePost />
-                {posts.map((post) => {
+                {/* {posts.map((post) => {
                     return (
                         <Post>d</Post>
                     )
-                })}
+                })} */}
 
             </Feed>
         </MainContainer>
