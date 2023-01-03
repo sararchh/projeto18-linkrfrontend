@@ -1,14 +1,40 @@
+import { useState, useEffect } from "react";
 import styled from "styled-components";
 import CreatePost from "./CreatePost";
+import axios from "axios";
 
 export default function Main() {
+    const [posts, setPosts] = useState(null)
+
+    /*const config = {
+        headers: {
+             Authorization: `Bearer ${ tokenOnLocalStorage }`,
+         },
+     };*/
+
+    useEffect(() => {
+
+        const promise = axios.get(`http://localhost:4000/timeline`)
+        promise.then(resposta => {
+            setPosts(resposta.data)
+        });
+    }, []);
+
+    if (posts === null) {
+        return 'carregando...';
+    }
 
     return (
         <MainContainer>
             <Feed>
                 <p>timeline</p>
-                <CreatePost/>
-                <Post>d</Post>
+                <CreatePost />
+                {posts.map((post) => {
+                    return (
+                        <Post>d</Post>
+                    )
+                })}
+
             </Feed>
         </MainContainer>
     );
