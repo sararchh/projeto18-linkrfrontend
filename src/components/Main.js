@@ -2,9 +2,12 @@ import { useState, useEffect } from "react";
 import styled from "styled-components";
 import CreatePost from "./CreatePost";
 import axios from "axios";
+import Post from "./Post";
 
 export default function Main() {
+
     const [posts, setPosts] = useState(null)
+    const [newPost, setNewPost] = useState(false)
 
     /*const config = {
         headers: {
@@ -18,22 +21,32 @@ export default function Main() {
         promise.then(resposta => {
             setPosts(resposta.data)
         });
-    }, []);
+        promise.catch(resposta => {
+            alert("An error occured while trying to fetch the posts, please refresh the page")
+        });
+
+    }, [newPost]);
 
     if (posts === null) {
         return 'carregando...';
     }
 
+    console.log(posts)
     return (
         <MainContainer>
             <Feed>
                 <p>timeline</p>
-                <CreatePost />
-                {posts.map((post) => {
-                    return (
-                        <Post>d</Post>
-                    )
-                })}
+                <CreatePost newPost={newPost} setNewPost={setNewPost} />
+                {posts.length === 0
+                    ?
+                    'There are no posts yet'
+                    :
+                    posts.map((post) => {
+                        return (
+                            <Post post={post} />
+                        )})}
+
+
 
             </Feed>
         </MainContainer>
@@ -42,10 +55,11 @@ export default function Main() {
 
 const MainContainer = styled.div`
 width: 100vmax;
-height: 100vmax;
+height: 100vh;
 background-color: #333333;
 display: flex;
 justify-content: center;
+margin-top: 72px;
 `
 const Feed = styled.div`
 width: 611px;
@@ -60,13 +74,5 @@ p{
 
 }
 `
-const Post = styled.div`
-margin-top: 43px;
-width: 100%;
-height: 209px;
-background-color: #171717;
-box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-border-radius: 16px;
-padding: 20px;
-`
+
 
