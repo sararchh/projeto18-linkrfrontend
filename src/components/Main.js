@@ -1,8 +1,11 @@
 import { useState, useEffect } from "react";
+
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import CreatePost from "./CreatePost";
 import axios from "axios";
 import Post from "./Post";
+
+import CreatePost from "./CreatePost";
 
 export default function Main() {
 
@@ -14,6 +17,16 @@ export default function Main() {
              Authorization: `Bearer ${ tokenOnLocalStorage }`,
          },
      };*/
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        if (!token) {
+            //TO DO adicionar validacao no login para caso existir o token no localstorage permanecer logado
+            navigate("/");
+        }
+         // eslint-disable-next-line
+    }, []);
 
     useEffect(() => {
 
