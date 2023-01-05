@@ -1,35 +1,43 @@
-import { useState } from "react"
-import { RegisterForm } from "./styles"
+import { useEffect, useState } from "react"
+import { LoginForm } from "./styles"
 import api from "../../services/api";
 import { useNavigate } from "react-router-dom";
 
 export default function Form() {
-    const [form, setForm] = useState({ email: "", password: "", username: "", pictureUrl: "" });
+    const [form, setForm] = useState({ email: "", password: "" });
     const [isDisabled, setIsDisabled] = useState(false)
     const navigate = useNavigate();
+
+    useEffect(() => {
+        const token = localStorage.getItem('token');
+
+        if (token) {
+            navigate("/timeline");
+        }
+        // eslint-disable-next-line
+    }, []);
 
     function handleForm(e) {
         const { name, value } = e.target;
         setForm({ ...form, [name]: value });
     };
 
-    async function sendRegister(e) {
+    async function sendLogin(e) {
         e.preventDefault()
         setIsDisabled(true)
 
         const newForm = {
             email: form.email,
             password: form.password,
-            username: form.username,
-            pictureUrl: form.pictureUrl
         }
 
         const body = { ...newForm };
 
-        await api.post(`/sign-up`, body)
+        await api.post(`/sign-in`, body)
             .then(res => {
-                navigate("/")
                 setIsDisabled(false)
+                localStorage.setItem("token", res.data)
+                navigate("/timeline")
             })
             .catch(err => {
                 alert(err.response.data)
@@ -38,12 +46,10 @@ export default function Form() {
     }
 
     return (
-        <RegisterForm onSubmit={sendRegister}>
+        <LoginForm onSubmit={sendLogin}>
             <input name="email" value={form.email} onChange={handleForm} placeholder="e-mail" type="text" disabled={isDisabled} required />
             <input name="password" value={form.password} onChange={handleForm} placeholder="password" type="password" disabled={isDisabled} required />
-            <input name="username" value={form.username} onChange={handleForm} placeholder="username" type="text" disabled={isDisabled} required />
-            <input name="pictureUrl" value={form.pictureUrl} onChange={handleForm} placeholder="picture url" type="text" disabled={isDisabled} required />
-            <button type="submit">Sign Up</button>
-        </RegisterForm>
+            <button type="submit" disabled={isDisabled}>Sign In</button>
+        </LoginForm>
     );
 };
