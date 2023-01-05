@@ -1,26 +1,7 @@
-import styled from "styled-components";
+import styled from "styled-components"
 
-export default function Post({ post }) {
-    return (
-        <>
-            <PostContainer>
-                <ProfilePicture>
 
-                </ProfilePicture>
-                <PostContent>
-                    <p>Daniel </p>
-                    <h1>{post.content} </h1>
-                    <UrlContainer>
-                        <h2>{post.url} </h2>
-                    </UrlContainer>
-
-                </PostContent>
-            </PostContainer>
-        </>
-    );
-}
-
-const PostContainer = styled.div`
+export const PostContainer = styled.div`
 margin-top: 43px;
 width: 100%;
 height: 276px;
@@ -30,13 +11,13 @@ border-radius: 16px;
 padding: 20px;
 display: flex;
 `
-const ProfilePicture = styled.div`
+export const ProfilePicture = styled.div`
 background: red;
 border-radius: 26.5px;
 width: 53px;
 height: 53px;
 `
-const PostContent = styled.div`
+export const PostContent = styled.div`
 
 margin-left: 18px;
 p{
@@ -59,7 +40,7 @@ h1{
     margin-bottom: 6px;
 }
 `
-const UrlContainer = styled.div`
+export const UrlContainer = styled.div`
 box-sizing: border-box;
 width: 503px;
 height: 155px;

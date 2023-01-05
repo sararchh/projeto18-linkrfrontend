@@ -8,7 +8,9 @@ display: flex;
 justify-content: space-between;
 align-items: center;
 
-position: relative;
+position: fixed;
+top: 0;
+left: 0;
 
 p{
     font-family: 'Passion One';
@@ -39,7 +41,7 @@ background: red;
 border-radius: 26.5px;
 width: 53px;
 height: 53px;
-margin-right: 17px;
+margin-right: 40px;
 `
 
 export const Menu = styled.div`

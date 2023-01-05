@@ -1,16 +1,17 @@
 import { useState, useEffect } from "react";
 
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import axios from "axios";
-import Post from "./Post";
+import Post from "../post/Post";
 
-import CreatePost from "./CreatePost";
+import CreatePost from "../createPost/CreatePost";
+import { Feed, MainContainer } from "./styles";
 
 export default function Main() {
 
     const [posts, setPosts] = useState(null)
     const [newPost, setNewPost] = useState(false)
+    const navigate = useNavigate();
 
     /*const config = {
         headers: {
@@ -64,28 +65,8 @@ export default function Main() {
             </Feed>
         </MainContainer>
     );
-}
+ }
 
-const MainContainer = styled.div`
-width: 100vmax;
-height: 100vh;
-background-color: #333333;
-display: flex;
-justify-content: center;
-margin-top: 72px;
-`
-const Feed = styled.div`
-width: 611px;
-margin-top: 150px;
-p{
-    font-family: 'Oswald';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 43px;
-    line-height: 64px;
-    color: #FFFFFF;
 
-}
-`
 
 
