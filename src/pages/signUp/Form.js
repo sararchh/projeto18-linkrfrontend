@@ -26,15 +26,24 @@ export default function Form() {
 
         const body = { ...newForm };
 
-        await api.post(`/sign-up`, body)
-            .then(res => {
-                navigate("/")
-                setIsDisabled(false)
-            })
-            .catch(err => {
-                alert(err.response.data)
-                setIsDisabled(false)
-            })
+        // await api.post(`/sign-up`, body)
+        //     .then(res => {
+        //         navigate("/");
+        //         setIsDisabled(false);
+        //     })
+        //     .catch(err => {
+        //         alert(err.response.data)
+        //         setIsDisabled(false)
+        //     })
+ 
+            try {
+                const users = await api.post(`/sign-up`, body);
+                console.log(users?.data);
+  
+            } catch (error) {
+                console.log(error);
+            }
+        
     }
 
     return (
