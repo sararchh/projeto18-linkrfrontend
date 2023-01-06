@@ -10,6 +10,10 @@ export const GlobalStyle = createGlobalStyle`
   --background:  #362946;
   --purple: #7025CF;
 
+  --text: #C6C6C6;
+  --text-dark: #515151;
+
+
   --white: #FFFFFF;
   --black: #171717;
 }

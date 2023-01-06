@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import media from "styled-media-query";
 
 export const HeaderContainer = styled.div`
 background-color: #151515;
@@ -63,4 +64,105 @@ export const Menu = styled.div`
     font-size: 17px;
     letter-spacing: 0.05em;
   }
+`;
+
+export const ContainerInput = styled.div`
+       max-width: 563px;
+       width: 563px;
+       height: 45px;
+       flex-direction: column;
+       position: relative;
+
+    svg {
+        width: 34px;
+        height: 34px;
+        color: var(--text);
+
+        position: absolute;
+        top: 7px;
+        right: 10px;
+
+        z-index: 2;
+    }
+
+    input {
+    min-width: 563px;
+    width: 563px;
+    height: 45px;
+    border-radius: 8px;
+    background-color: var(--white);
+
+    font-size: 19px;
+    padding: 20px;
+    color: var(--text);
+
+    z-index: 2;
+
+    @media (max-width: 800px) {
+        min-width: 350px;
+        max-width: 350px;
+        width: 350px;
+        height: 45px;
+    }  
+    }
+
+
+    @media (max-width: 800px) {
+        margin-top:150px;
+        max-width: 350px;
+        width: 350px;
+        height: 45px;
+    }  
+`;
+
+export const Card = styled.div`
+       max-width: 563px;
+       width: 563px;
+       height: auto;
+
+       background-color: var(--text);
+
+       border-radius: 8px;
+       margin-top: -12px;
+
+       display: flex;
+       flex-direction: column;
+
+       .cardAvatar {
+        width: 500px;
+        margin-top: 15px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+
+        cursor: pointer;
+
+        img {
+            width: 39px;
+            height: 39px;
+            border-radius: 304px;
+        }
+
+        p {
+            font-style: normal;
+            font-weight: 400;
+            font-size: 19px;
+            line-height: 23px;
+            color: var(--text-dark);
+        }
+
+        @media (max-width: 800px) {
+        min-width: 350px;
+        max-width: 350px;
+        width: 350px;
+        }  
+       }
+
+       @media (max-width: 800px) {
+        min-width: 350px;
+        max-width: 350px;
+        width: 350px;
+        height: auto;
+    }  
 `;
