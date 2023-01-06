@@ -23,7 +23,6 @@ export default function Main() {
         const token = localStorage.getItem('token');
 
         if (!token) {
-            //TO DO adicionar validacao no login para caso existir o token no localstorage permanecer logado
             navigate("/");
         }
          // eslint-disable-next-line

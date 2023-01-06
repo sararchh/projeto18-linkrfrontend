@@ -1,17 +1,19 @@
 import React from 'react';
 import { Logo } from '../../components/Logo';
-import { PageContainer } from "./styles"
-import Login from "./Login"
+import Register from './Register';
+
+import { PageContainer } from './styles'
+
 // import { Container } from './styles';
 
-function SignIn() {
+function SignUp() {
   return (
     <PageContainer>
         <Logo />
-        <Login />
+        <Register />
     </PageContainer>
   );
 }
 
 
-export default SignIn;
+export default SignUp;
