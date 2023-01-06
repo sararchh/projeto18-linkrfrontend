@@ -9,7 +9,7 @@ import { Feed, MainContainer } from "./styles";
 
 export default function Main() {
 
-    const [posts, setPosts] = useState(null)
+    const [posts, setPosts] = useState([])
     const [newPost, setNewPost] = useState(false)
     const navigate = useNavigate();
 
@@ -48,7 +48,7 @@ export default function Main() {
     return (
         <MainContainer>
             <Feed>
-                <p>timeline</p>
+                <p className="text-feed">timeline</p>
                 <CreatePost newPost={newPost} setNewPost={setNewPost} />
                 {posts.length === 0
                     ?

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { PostContainer, PostContent, ProfilePicture, UrlContainer } from "./styles";
+import { PostContainer, PostContent, ProfilePicture, UrlContainer, Text } from "./styles";
 
 export default function Post({ post }) {
     return (
@@ -9,7 +9,7 @@ export default function Post({ post }) {
 
                 </ProfilePicture>
                 <PostContent>
-                    <p>Daniel </p>
+                    <Text>Daniel </Text>
                     <h1>{post.content} </h1>
                     <UrlContainer>
                         <h2>{post.url} </h2>
