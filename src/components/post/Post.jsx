@@ -1,23 +1,30 @@
 import styled from "styled-components";
-import { PostContainer, PostContent, ProfilePicture, UrlContainer, Text } from "./styles";
+import LikePost from "../likePost/LikePost";
+import {
+  PostContainer,
+  PostContent,
+  ProfilePicture,
+  UrlContainer,
+  Text,
+  ContainerLeft,
+} from "./styles";
 
-export default function Post({ post }) {
-    return (
-        <>
-            <PostContainer>
-                <ProfilePicture>
-
-                </ProfilePicture>
-                <PostContent>
-                    <Text>Daniel </Text>
-                    <h1>{post.content} </h1>
-                    <UrlContainer>
-                        <h2>{post.url} </h2>
-                    </UrlContainer>
-
-                </PostContent>
-            </PostContainer>
-        </>
-    );
+export default function Post({ post, clicked, setClicked, whoLiked }) {
+  return (
+    <>
+      <PostContainer>
+        <ContainerLeft>
+          <ProfilePicture></ProfilePicture>
+          <LikePost post={post} clicked={clicked} setClicked={setClicked} whoLiked={whoLiked} />
+        </ContainerLeft>
+        <PostContent>
+          <Text>Daniel</Text>
+          <h1>{post.content} </h1>
+          <UrlContainer>
+            <h2>{post.url} </h2>
+          </UrlContainer>
+        </PostContent>
+      </PostContainer>
+    </>
+  );
 }
-
