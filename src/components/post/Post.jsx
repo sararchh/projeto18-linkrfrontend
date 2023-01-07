@@ -9,7 +9,7 @@ export default function Post({ post }) {
 
                 </ProfilePicture>
                 <PostContent>
-                    <p>Daniel </p>
+                    <p> </p>
                     <h1>{post.content} </h1>
                     <UrlContainer>
                         <h2>{post.url} </h2>

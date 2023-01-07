@@ -25,7 +25,7 @@ p{
     font-family: 'Lato';
     font-style: normal;
     font-weight: 400;
-    font-size: 19px;
+    font-size: 20px;
     line-height: 23px;
     color: #FFFFFF;
     margin-bottom: 7px;
