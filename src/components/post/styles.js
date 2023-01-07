@@ -49,3 +49,6 @@ height: 155px;
 border: 1px solid #4D4D4D;
 border-radius: 11px;
 `
+
+export const ContainerLeft = styled.div`
+`;
