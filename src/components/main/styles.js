@@ -12,7 +12,8 @@ margin-top: 72px;
 export const Feed = styled.div`
 width: 611px;
 margin-top: 150px;
-p{
+
+.text-feed{
     font-family: 'Oswald';
     font-style: normal;
     font-weight: 700;

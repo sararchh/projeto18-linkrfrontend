@@ -1,7 +1,6 @@
-import styled from "styled-components";
 import { useState } from "react";
 import axios from "axios";
-import { CreatePostContainer, CreatePostContent, Form, Input, InputText, PostButton, ProfilePicture } from "./styles";
+import { CreatePostContainer, CreatePostContent, Form, Input, InputText, PostButton, ProfilePicture, Text } from "./styles";
 
 export default function CreatePost({newPost, setNewPost}) {
 
@@ -36,7 +35,7 @@ export default function CreatePost({newPost, setNewPost}) {
         requisicao.then(resposta => {
             setLoading(false)
             const dados = resposta.data
-            console.log(dados)
+            console.log({dados})
             setNewPost(!newPost)
         });
 
@@ -53,7 +52,7 @@ export default function CreatePost({newPost, setNewPost}) {
         <CreatePostContainer>
             <ProfilePicture></ProfilePicture>
             <CreatePostContent>
-                <p>What are you going to share today?</p>
+                <Text>What are you going to share today?</Text>
                 {
                     loading
                         ?

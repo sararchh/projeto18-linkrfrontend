@@ -18,18 +18,7 @@ width: 53px;
 height: 53px;
 `
 export const PostContent = styled.div`
-
 margin-left: 18px;
-p{
-    margin-top: 4px;
-    font-family: 'Lato';
-    font-style: normal;
-    font-weight: 400;
-    font-size: 20px;
-    line-height: 23px;
-    color: #FFFFFF;
-    margin-bottom: 7px;
-}
 h1{
     font-family: 'Lato';
     font-style: normal;
@@ -40,6 +29,18 @@ h1{
     margin-bottom: 6px;
 }
 `
+
+export const Text = styled.p`
+    margin-top: 4px;
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 19px !important;
+    line-height: 23px;
+    color: #FFFFFF;
+    margin-bottom: 7px;
+`;
+
 export const UrlContainer = styled.div`
 box-sizing: border-box;
 width: 503px;
