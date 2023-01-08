@@ -14,11 +14,11 @@ export default function Post({ post, clicked, setClicked, whoLiked }) {
     <>
       <PostContainer>
         <ContainerLeft>
-          <ProfilePicture></ProfilePicture>
+          <ProfilePicture src={post.pictureUrl} ></ProfilePicture>
           <LikePost post={post} clicked={clicked} setClicked={setClicked} whoLiked={whoLiked} />
         </ContainerLeft>
         <PostContent>
-          <Text>Daniel</Text>
+          <Text>{post.username}</Text>
           <h1>{post.content} </h1>
           <UrlContainer>
             <h2>{post.url} </h2>

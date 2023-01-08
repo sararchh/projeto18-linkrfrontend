@@ -8,12 +8,7 @@ export default function CreatePost({newPost, setNewPost}) {
     const [content, setContent] = useState('')
     const [loading, setLoading] = useState(false)
 
-    /*const config = {
-        headers: {
-             Authorization: `Bearer ${tokenOnLocalStorage}`,
-         },
-     };*/
-    //adicionar config depois
+    
 
     function publicar(event) {
         event.preventDefault();
@@ -26,6 +21,14 @@ export default function CreatePost({newPost, setNewPost}) {
         }
         setLoading(true)
 
+        /*const token = localStorage.getItem("token");
+    console.log(token)
+
+    const config = {
+        headers: {
+             Authorization: `Bearer ${token}`,
+         },
+     };*/
         const requisicao = axios.post("http://localhost:4000/timeline", {
             url: url,
             content: content,

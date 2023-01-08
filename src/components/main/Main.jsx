@@ -16,14 +16,11 @@ export default function Main() {
 
   const navigate = useNavigate();
 
-  /*const config = {
-        headers: {
-             Authorization: `Bearer ${ tokenOnLocalStorage }`,
-         },
-     };*/
+  
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+    
 
     if (!token) {
       navigate("/");
@@ -32,6 +29,13 @@ export default function Main() {
   }, []);
 
   useEffect(() => {
+    /*const token = localStorage.getItem("token");
+
+    const config = {
+      headers: {
+           Authorization: `Bearer ${ token }`,
+       },
+   };*/
     const promise = axios.get(`http://localhost:4000/timeline`);
     promise.then((resposta) => {
       setPosts(resposta.data.posts);
