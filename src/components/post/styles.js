@@ -11,8 +11,7 @@ border-radius: 16px;
 padding: 20px;
 display: flex;
 `
-export const ProfilePicture = styled.div`
-background: red;
+export const ProfilePicture = styled.img`
 border-radius: 26.5px;
 width: 53px;
 height: 53px;
