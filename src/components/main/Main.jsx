@@ -14,6 +14,8 @@ export default function Main() {
   const [clicked, setClicked] = useState(undefined);
   const [whoLiked, setWhoLiked] = useState(undefined);
 
+  const [dadosUser, setDadosUser] = useState('')  
+
   const navigate = useNavigate();
 
   
@@ -29,17 +31,18 @@ export default function Main() {
   }, []);
 
   useEffect(() => {
-    /*const token = localStorage.getItem("token");
+    const token = localStorage.getItem("token");
 
     const config = {
       headers: {
            Authorization: `Bearer ${ token }`,
        },
-   };*/
-    const promise = axios.get(`http://localhost:4000/timeline`);
+   };
+    const promise = axios.get(`http://localhost:4000/timeline`, config);
     promise.then((resposta) => {
       setPosts(resposta.data.posts);
       setWhoLiked(resposta.data.likes);
+      setDadosUser(resposta.data.dadosUser)
     });
     promise.catch((resposta) => {
       alert(
@@ -51,13 +54,17 @@ export default function Main() {
   if (posts === null) {
     return "carregando...";
   }
+  if (dadosUser === '') {
+    return "carregando...";
+  }
 
   console.log(posts);
+  console.log(dadosUser[0])
   return (
     <MainContainer>
       <Feed>
         <p className="text-feed">timeline</p>
-        <CreatePost newPost={newPost} setNewPost={setNewPost} />
+        <CreatePost newPost={newPost} setNewPost={setNewPost} dadosUser = {dadosUser[0]}/>
         {posts.length === 0
           ? "There are no posts yet"
           : posts.map((post) => {
@@ -69,6 +76,7 @@ export default function Main() {
                   clicked={clicked}
                   setClicked={setClicked}
                   whoLiked={whoLiked}
+                  dadosUser = {dadosUser[0]}
                 />
               );
             })}

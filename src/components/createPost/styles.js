@@ -28,8 +28,7 @@ height: 31px;
 background: #1877F2;
 border-radius: 5px;
 `
-export const ProfilePicture = styled.div`
-background: red;
+export const ProfilePicture = styled.img`
 border-radius: 26.5px;
 width: 53px;
 height: 53px;
