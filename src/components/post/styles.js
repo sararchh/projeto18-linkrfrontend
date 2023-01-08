@@ -50,3 +50,7 @@ border-radius: 11px;
 
 export const ContainerLeft = styled.div`
 `;
+
+export const Icon = styled.div`
+
+`

@@ -64,6 +64,8 @@ export default function Main() {
               return (
                 <Post
                   post={post}
+                  setNewPost = {setNewPost}
+                  newPost = {newPost}
                   clicked={clicked}
                   setClicked={setClicked}
                   whoLiked={whoLiked}
