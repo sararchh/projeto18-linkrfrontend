@@ -2,6 +2,8 @@ import axios from "axios";
 import styled from "styled-components";
 import LikePost from "../likePost/LikePost";
 import ReactModal from "react-modal";
+import { ReactTagify } from "react-tagify";
+import { useNavigate } from "react-router-dom";
 
 import {
     PostContainer,
@@ -40,6 +42,12 @@ export default function Post({ post, clicked, setClicked, whoLiked, setNewPost, 
     let botaoSim;
     const [modalIsOpen, setIsOpen] = useState(false);
     const [loading, setLoading] = useState(false)
+    const navigate = useNavigate();
+
+    function clickHashtag(h) {
+    const hashtag = h.replace("#", "")
+    navigate(`/hashtag/${hashtag}`)
+  }
 
     function deletePost() {
         setLoading(true)
@@ -114,7 +122,9 @@ export default function Post({ post, clicked, setClicked, whoLiked, setNewPost, 
                 <PostContent>
                     <Text>{post.username}</Text>
                     <Icon onClick={openModal}>lixeira</Icon>
-                    <h1>{post.content} </h1>
+                    <ReactTagify tagClicked={clickHashtag}>
+                        <h1>{post.content}</h1>
+                    </ReactTagify>
                     <UrlContainer>
                         <h2>{post.url} </h2>
                     </UrlContainer>
