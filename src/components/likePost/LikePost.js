@@ -4,13 +4,16 @@ import { EachPost, FillRedHeart, OutLineHeart } from "./styles";
 import { Tooltip, TooltipProvider } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import { useEffect, useState } from "react";
+import api from "../../services/api";
 
 export default function LikePost({ i, post, clicked, setClicked, whoLiked }) {
   const [tooltip, setTooltip] = useState([]);
   const [contentFill, setContentFill] = useState("");
   const [contentOut, setContentOut] = useState("");
 
-  const usersLiked = whoLiked.filter((w) => post.id === w.postId);
+  const usersLiked = whoLiked.filter((w) => post.postId === w.postId);
+
+  console.log(usersLiked)
 
   const token = localStorage.getItem("token");
 
@@ -23,23 +26,23 @@ export default function LikePost({ i, post, clicked, setClicked, whoLiked }) {
   useEffect(() => {
     setTooltip(usersLiked);
 
-    if (usersLiked.length === 0) {
+    if (tooltip.length === 0) {
       setContentOut("Ninguém curtiu");
     }
 
-    if (usersLiked.length === 1) {
+    if (tooltip.length === 1) {
       setContentOut(`${usersLiked[0].username} curtiu`);
       setContentFill("Você curtiu");
     }
 
-    if (usersLiked.length === 2) {
+    if (tooltip.length === 2) {
       setContentFill(`Você e ${usersLiked[0].username} curtiram`);
       setContentOut(
         `${usersLiked[0].username} e ${usersLiked[1].username} curtiram`
       );
     }
 
-    if (usersLiked.length > 2) {
+    if (tooltip.length > 2) {
       setContentFill(
         `Você, ${usersLiked[0].username} e outras ${
           usersLiked.length - 2
@@ -51,11 +54,11 @@ export default function LikePost({ i, post, clicked, setClicked, whoLiked }) {
         } pessoas curtiram`
       );
     }
-  }, []);
+  }, [tooltip.length]);
 
   function like() {
-    const promise = axios.post(
-      `http://localhost:4000/timeline/${post.id}/like`,
+    const promise = api.post(
+      `/timeline/${post.postId}/like`,
       { id: post.id },
       config
     );
@@ -68,8 +71,8 @@ export default function LikePost({ i, post, clicked, setClicked, whoLiked }) {
   }
 
   function unlike() {
-    const promise = axios.post(
-      `http://localhost:4000/timeline/${post.id}/unlike`,
+    const promise = api.post(
+      `/timeline/${post.postId}/unlike`,
       { id: post.id },
       config
     );
