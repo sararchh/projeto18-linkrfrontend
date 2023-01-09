@@ -5,7 +5,7 @@ import { Tooltip, TooltipProvider } from "react-tooltip";
 import "react-tooltip/dist/react-tooltip.css";
 import { useEffect, useState } from "react";
 
-export default function LikePost({ post, clicked, setClicked, whoLiked }) {
+export default function LikePost({ i, post, clicked, setClicked, whoLiked }) {
   const [tooltip, setTooltip] = useState([]);
   const [contentFill, setContentFill] = useState("");
   const [contentOut, setContentOut] = useState("");
@@ -73,13 +73,13 @@ export default function LikePost({ post, clicked, setClicked, whoLiked }) {
     <EachPost>
       {post.isLiked ? (
         <FillRedHeart>
-          <HiHeart id={`fillHeart-${post.id}`} onClick={unlike} />
-          <Tooltip anchorId={`fillHeart-${post.id}`} content={contentFill} />
+          <HiHeart id={`fillHeart-${i}`} onClick={unlike} />
+          <Tooltip anchorId={`fillHeart-${i}`} content={contentFill} />
         </FillRedHeart>
       ) : (
         <OutLineHeart>
-          <HiOutlineHeart id={`outLineHeart-${post.id}`} onClick={like} />
-          <Tooltip anchorId={`outLineHeart-${post.id}`} content={contentOut} />
+          <HiOutlineHeart id={`outLineHeart-${i}`} onClick={like} />
+          <Tooltip anchorId={`outLineHeart-${i}`} content={contentOut} />
         </OutLineHeart>
       )}
     </EachPost>
