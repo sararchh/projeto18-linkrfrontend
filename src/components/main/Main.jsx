@@ -7,6 +7,7 @@ import Post from "../post/Post";
 import CreatePost from "../createPost/CreatePost";
 import { Feed, MainContainer, TrendingListStyles } from "./styles";
 import TrendingList from "../trendingList/TrendingList";
+import api from "../../services/api";
 
 export default function Main() {
   const [posts, setPosts] = useState([]);
@@ -40,7 +41,7 @@ export default function Main() {
            Authorization: `Bearer ${ token }`,
        },
    };
-    const promise = axios.get(`http://localhost:4000/timeline`, config);
+    const promise = api.get(`/timeline`, config);
     promise.then((resposta) => {
       setPosts(resposta.data.posts);
       setWhoLiked(resposta.data.likes);
