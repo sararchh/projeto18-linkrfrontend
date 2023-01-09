@@ -12,7 +12,13 @@ export default function LikePost({ i, post, clicked, setClicked, whoLiked }) {
 
   const usersLiked = whoLiked.filter((w) => post.id === w.postId);
 
-  //console.log(usersLiked);
+  const token = localStorage.getItem("token");
+
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
   useEffect(() => {
     setTooltip(usersLiked);
@@ -49,10 +55,13 @@ export default function LikePost({ i, post, clicked, setClicked, whoLiked }) {
 
   function like() {
     const promise = axios.post(
-      `http://localhost:4000/timeline/${post.id}/like`
+      `http://localhost:4000/timeline/${post.id}/like`,
+      { id: post.id },
+      config
     );
 
     promise.then((res) => {
+      console.log("Foiii");
       clicked === true ? setClicked(false) : setClicked(true);
     });
     promise.catch((err) => console.log(err.responde.data));
@@ -60,7 +69,9 @@ export default function LikePost({ i, post, clicked, setClicked, whoLiked }) {
 
   function unlike() {
     const promise = axios.post(
-      `http://localhost:4000/timeline/${post.id}/unlike`
+      `http://localhost:4000/timeline/${post.id}/unlike`,
+      { id: post.id },
+      config
     );
 
     promise.then((res) => {
