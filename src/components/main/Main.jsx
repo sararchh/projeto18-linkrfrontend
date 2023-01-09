@@ -5,7 +5,8 @@ import axios from "axios";
 import Post from "../post/Post";
 
 import CreatePost from "../createPost/CreatePost";
-import { Feed, MainContainer } from "./styles";
+import { Feed, MainContainer, TrendingListStyles } from "./styles";
+import TrendingList from "../trendingList/TrendingList";
 
 export default function Main() {
   const [posts, setPosts] = useState([]);
@@ -13,6 +14,7 @@ export default function Main() {
 
   const [clicked, setClicked] = useState(undefined);
   const [whoLiked, setWhoLiked] = useState(undefined);
+  const [trendingList, setTrendindList] = useState(undefined);
 
   const [dadosUser, setDadosUser] = useState('')  
 
@@ -43,6 +45,8 @@ export default function Main() {
       setPosts(resposta.data.posts);
       setWhoLiked(resposta.data.likes);
       setDadosUser(resposta.data.dadosUser)
+      setTrendindList(resposta.data.trendingList)
+
     });
     promise.catch((resposta) => {
       alert(
@@ -58,28 +62,36 @@ export default function Main() {
     return "carregando...";
   }
 
-  console.log(posts);
-  console.log(dadosUser[0])
+  // console.log(posts);
+  // console.log(dadosUser[0])
   return (
     <MainContainer>
       <Feed>
-        <p className="text-feed">timeline</p>
-        <CreatePost newPost={newPost} setNewPost={setNewPost} dadosUser = {dadosUser[0]}/>
-        {posts.length === 0
-          ? "There are no posts yet"
-          : posts.map((post) => {
-              return (
-                <Post
-                  post={post}
-                  setNewPost = {setNewPost}
-                  newPost = {newPost}
-                  clicked={clicked}
-                  setClicked={setClicked}
-                  whoLiked={whoLiked}
-                  dadosUser = {dadosUser[0]}
-                />
-              );
-            })}
+        <div>
+        
+          <p className="text-feed">timeline</p>
+          <CreatePost newPost={newPost} setNewPost={setNewPost} dadosUser = {dadosUser[0]}/>
+          {posts.length === 0
+            ? "There are no posts yet"
+            : posts.map((post,i) => {
+                return (
+                  <Post
+                    key={i}
+                    i={i}
+                    post={post}
+                    setNewPost = {setNewPost}
+                    newPost = {newPost}
+                    clicked={clicked}
+                    setClicked={setClicked}
+                    whoLiked={whoLiked}
+                    dadosUser = {dadosUser[0]}
+                  />
+                );
+              })}
+        </div>
+        <TrendingListStyles>
+          <TrendingList trendingList={trendingList}/>
+        </TrendingListStyles>
       </Feed>
     </MainContainer>
   );

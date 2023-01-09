@@ -2,6 +2,8 @@ import axios from "axios";
 import styled from "styled-components";
 import LikePost from "../likePost/LikePost";
 import ReactModal from "react-modal";
+import { ReactTagify } from "react-tagify";
+import { useNavigate } from "react-router-dom";
 
 import {
     PostContainer,
@@ -35,7 +37,7 @@ const customStyles = {
     },
 };
 
-export default function Post({ post, clicked, setClicked, whoLiked, setNewPost, newPost, dadosUser }) {
+export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPost, newPost, dadosUser }) {
     let subtitle;
     let botoes;
     let botaoNao;
@@ -45,6 +47,12 @@ export default function Post({ post, clicked, setClicked, whoLiked, setNewPost, 
     const [editing, setEditing] = useState(false)
     const [content, setContent] = useState('')
     let yourPost;
+    const navigate = useNavigate();
+
+    function clickHashtag(h) {
+        const hashtag = h.replace("#", "")
+        navigate(`/hashtag/${hashtag}`)
+    }
 
     if (dadosUser.id === post.id) {
         yourPost = true
@@ -147,7 +155,7 @@ export default function Post({ post, clicked, setClicked, whoLiked, setNewPost, 
             <PostContainer>
                 <ContainerLeft>
                     <ProfilePicture src={post.pictureUrl} ></ProfilePicture>
-                    <LikePost post={post} clicked={clicked} setClicked={setClicked} whoLiked={whoLiked} />
+                    <LikePost i={i} post={post} clicked={clicked} setClicked={setClicked} whoLiked={whoLiked} />
                 </ContainerLeft>
                 <PostContent>
                     <Text>{post.username}</Text>
@@ -163,7 +171,8 @@ export default function Post({ post, clicked, setClicked, whoLiked, setNewPost, 
                             <Input type="text" placeholder="  http://..." value={content} onChange={e => setContent(e.target.value)} />
                         </Form>
                         :
-                        <h1>{post.content} </h1>
+                        (<ReactTagify tagClicked={clickHashtag}><h1>{post.content}</h1></ReactTagify>)
+                        
                     }
                     <UrlContainer>
                         <h2>{post.url} </h2>
