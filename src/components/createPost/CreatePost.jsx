@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { CreatePostContainer, CreatePostContent, Form, Input, InputText, PostButton, ProfilePicture, Text } from "./styles";
 
-export default function CreatePost({newPost, setNewPost}) {
+export default function CreatePost({newPost, setNewPost, dadosUser}) {
 
     const [url, setUrl] = useState('')
     const [content, setContent] = useState('')
@@ -21,18 +21,18 @@ export default function CreatePost({newPost, setNewPost}) {
         }
         setLoading(true)
 
-        /*const token = localStorage.getItem("token");
+        const token = localStorage.getItem("token");
     console.log(token)
 
     const config = {
         headers: {
              Authorization: `Bearer ${token}`,
          },
-     };*/
+     };
         const requisicao = axios.post("http://localhost:4000/timeline", {
             url: url,
             content: content,
-        })
+        }, config)
 
 
         requisicao.then(resposta => {
@@ -53,7 +53,7 @@ export default function CreatePost({newPost, setNewPost}) {
 
     return (
         <CreatePostContainer>
-            <ProfilePicture></ProfilePicture>
+            <ProfilePicture src={dadosUser.pictureUrl} ></ProfilePicture>
             <CreatePostContent>
                 <Text>What are you going to share today?</Text>
                 {

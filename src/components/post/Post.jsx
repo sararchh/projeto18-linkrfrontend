@@ -12,7 +12,9 @@ import {
     UrlContainer,
     Text,
     ContainerLeft,
-    Icon
+    Icon,
+    Input,
+    Form
 } from "./styles";
 import { useState } from "react";
 
@@ -35,23 +37,33 @@ const customStyles = {
     },
 };
 
-export default function Post({ post, clicked, setClicked, whoLiked, setNewPost, newPost }) {
+export default function Post({ post, clicked, setClicked, whoLiked, setNewPost, newPost, dadosUser }) {
     let subtitle;
     let botoes;
     let botaoNao;
     let botaoSim;
     const [modalIsOpen, setIsOpen] = useState(false);
     const [loading, setLoading] = useState(false)
-    const navigate = useNavigate();
+    const [editing, setEditing] = useState(false)
+    const [content, setContent] = useState('')
+    let yourPost;
 
-    function clickHashtag(h) {
-    const hashtag = h.replace("#", "")
-    navigate(`/hashtag/${hashtag}`)
-  }
+    if (dadosUser.id === post.id) {
+        yourPost = true
+    } else yourPost = false
+
+    const token = localStorage.getItem("token");
+
+
+    const config = {
+        headers: {
+            Authorization: `Bearer ${token}`,
+        },
+    };
 
     function deletePost() {
         setLoading(true)
-        const requisicao = axios.delete(`http://localhost:4000/timeline/${post.postId}`);
+        const requisicao = axios.delete(`http://localhost:4000/timeline/${post.postId}`, config);
         requisicao.then((resposta) => {
             console.log(resposta.data)
             setNewPost(!newPost)
@@ -61,6 +73,26 @@ export default function Post({ post, clicked, setClicked, whoLiked, setNewPost, 
         requisicao.catch((resposta) => {
             alert(
                 "An error occured while trying to delete the post"
+            );
+        });
+    }
+
+    function editPost() {
+        setEditing(true)
+    }
+    function confirmEdit() {
+       
+        const requisicao = axios.post(`http://localhost:4000/timeline/${post.postId}`,{
+            content: content,
+        }, config);
+        requisicao.then((resposta) => {
+            console.log(resposta.data)
+            setNewPost(!newPost)
+            setEditing(false)
+        });
+        requisicao.catch((resposta) => {
+            alert(
+                "An error occured while trying to edit the post"
             );
         });
     }
@@ -121,10 +153,20 @@ export default function Post({ post, clicked, setClicked, whoLiked, setNewPost, 
                 </ContainerLeft>
                 <PostContent>
                     <Text>{post.username}</Text>
-                    <Icon onClick={openModal}>lixeira</Icon>
-                    <ReactTagify tagClicked={clickHashtag}>
-                        <h1>{post.content}</h1>
-                    </ReactTagify>
+                    {yourPost
+                        ? (<>
+                            <Icon onClick={openModal}>lixeira</Icon>
+                            <Icon onClick={editPost}>lapis</Icon>
+                        </>) : <></>
+                    }
+                    {editing
+                        ?
+                        <Form onSubmit={confirmEdit}>
+                            <Input type="text" placeholder="  http://..." value={content} onChange={e => setContent(e.target.value)} />
+                        </Form>
+                        :
+                        <h1>{post.content} </h1>
+                    }
                     <UrlContainer>
                         <h2>{post.url} </h2>
                     </UrlContainer>
@@ -140,10 +182,10 @@ export default function Post({ post, clicked, setClicked, whoLiked, setNewPost, 
                     contentLabel="Example Modal"
                 >
                     <h2 ref={(_subtitle) => (subtitle = _subtitle)}>Loading...</h2>
-                    
+
                 </ReactModal>
 
-                
+
                 :
                 <ReactModal
                     isOpen={modalIsOpen}
