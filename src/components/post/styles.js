@@ -27,6 +27,16 @@ h1{
     color: #B7B7B7;
     margin-bottom: 6px;
 }
+h3{
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+    line-height: 20px;
+    color: #B7B7B7;
+    margin-bottom: 6px;
+    background-color: green;
+}
 `
 
 export const Text = styled.p`
@@ -53,4 +63,31 @@ export const ContainerLeft = styled.div`
 
 export const Icon = styled.div`
 
+`
+export const Form = styled.form`
+display: flex;
+flex-direction: column;
+align-items: center;
+margin-top: 18px;
+div{
+    display: flex;
+    justify-content: end;
+    width: 100%;
+}
+`
+export const Input = styled.input`
+box-sizing: border-box;
+width: 503px;
+height: 30px;
+margin-bottom: 5px;
+background: #EFEFEF;
+border-radius: 5px;
+::placeholder{
+    font-family: 'Lato';
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 18px;
+    color: #949494;
+}
 `
