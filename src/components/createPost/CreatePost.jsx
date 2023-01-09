@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { CreatePostContainer, CreatePostContent, Form, Input, InputText, PostButton, ProfilePicture, Text } from "./styles";
+import api from "../../services/api";
 
 export default function CreatePost({newPost, setNewPost, dadosUser}) {
 
@@ -29,7 +30,7 @@ export default function CreatePost({newPost, setNewPost, dadosUser}) {
              Authorization: `Bearer ${token}`,
          },
      };
-        const requisicao = axios.post("http://localhost:4000/timeline", {
+        const requisicao = api.post("/timeline", {
             url: url,
             content: content,
         }, config)
@@ -40,6 +41,8 @@ export default function CreatePost({newPost, setNewPost, dadosUser}) {
             const dados = resposta.data
             console.log({dados})
             setNewPost(!newPost)
+            setContent('')
+            setUrl('')
         });
 
         requisicao.catch(erro => {

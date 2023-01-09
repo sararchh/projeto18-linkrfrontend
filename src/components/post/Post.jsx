@@ -14,9 +14,14 @@ import {
     ContainerLeft,
     Icon,
     Input,
-    Form
+    Form,
+    TextLine,
+    IconContainer,
+    LeftSide,
+    RightSide
 } from "./styles";
 import { useState } from "react";
+import api from "../../services/api";
 
 const customStyles = {
     content: {
@@ -49,6 +54,8 @@ export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPos
     let yourPost;
     const navigate = useNavigate();
 
+    
+
     function clickHashtag(h) {
         const hashtag = h.replace("#", "")
         navigate(`/hashtag/${hashtag}`)
@@ -69,7 +76,7 @@ export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPos
 
     function deletePost() {
         setLoading(true)
-        const requisicao = axios.delete(`http://localhost:4000/timeline/${post.postId}`, config);
+        const requisicao = api.delete(`/timeline/${post.postId}`, config);
         requisicao.then((resposta) => {
             console.log(resposta.data)
             setNewPost(!newPost)
@@ -77,18 +84,17 @@ export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPos
             setLoading(false)
         });
         requisicao.catch((resposta) => {
+            closeModal()
             alert(
                 "An error occured while trying to delete the post"
             );
         });
     }
 
-    function editPost() {
-        setEditing(true)
-    }
+    
     function confirmEdit() {
        
-        const requisicao = axios.post(`http://localhost:4000/timeline/${post.postId}`,{
+        const requisicao = api.post(`/timeline/${post.postId}`,{
             content: content,
         }, config);
         requisicao.then((resposta) => {
@@ -158,24 +164,38 @@ export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPos
                     <LikePost i={i} post={post} clicked={clicked} setClicked={setClicked} whoLiked={whoLiked} />
                 </ContainerLeft>
                 <PostContent>
+                    <TextLine>
                     <Text>{post.username}</Text>
                     {yourPost
-                        ? (<>
-                            <Icon onClick={openModal}>lixeira</Icon>
-                            <Icon onClick={editPost}>lapis</Icon>
-                        </>) : <></>
-                    }
+                        ? (
+                            <IconContainer>
+                            <Icon onClick={openModal}><ion-icon name="trash"></ion-icon></Icon>
+                            <Icon onClick={()=> setEditing(true)}><ion-icon name="create"></ion-icon></Icon>
+                            </IconContainer>
+                        ) : <></>
+                    }</TextLine>
                     {editing
                         ?
+                        
                         <Form onSubmit={confirmEdit}>
-                            <Input type="text" placeholder="  http://..." value={content} onChange={e => setContent(e.target.value)} />
+                            <Input  type="text" placeholder="" value={content} onChange={e => setContent(e.target.value)} />
                         </Form>
                         :
                         (<ReactTagify tagClicked={clickHashtag}><h1>{post.content}</h1></ReactTagify>)
                         
                     }
+                    
                     <UrlContainer>
-                        <h2>{post.url} </h2>
+                        <LeftSide>
+                        <h2>{post.title} </h2>
+                        <h4>{post.description} </h4>
+                        <h3>{post.url} </h3>
+                        </LeftSide>
+                        <RightSide src={post.image}>
+                       
+                        </RightSide>
+                        
+                        
                     </UrlContainer>
                 </PostContent>
             </PostContainer>
