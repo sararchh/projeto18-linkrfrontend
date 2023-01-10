@@ -13,8 +13,6 @@ export default function LikePost({ i, post, clicked, setClicked, whoLiked }) {
 
   const usersLiked = whoLiked.filter((w) => post.postId === w.postId);
 
-  console.log(usersLiked)
-
   const token = localStorage.getItem("token");
 
   const config = {
@@ -64,7 +62,7 @@ export default function LikePost({ i, post, clicked, setClicked, whoLiked }) {
     );
 
     promise.then((res) => {
-      console.log("Foiii");
+     
       clicked === true ? setClicked(false) : setClicked(true);
     });
     promise.catch((err) => console.log(err.responde.data));

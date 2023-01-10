@@ -2,17 +2,16 @@ import axios from "axios"
 import { useEffect } from "react"
 
 export default function MainHashtag({hashtag}) {
-    console.log(hashtag)
 
     useEffect(() => {
         const promise = axios.get(`http://localhost:4000/hashtag/${hashtag}`)
 
         promise.then((res) => {
-            console.log(res.data)
+            // console.log(res.data)
         })
 
         promise.catch((res) => {
-            console.log(res.responde.data);
+            // console.log(res.responde.data);
         }
         )
     }, []);

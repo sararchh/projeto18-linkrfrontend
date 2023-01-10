@@ -6,7 +6,6 @@ import Header from "../../components/header/Header";
 function Hashtag() {
   const { hashtag } = useParams();
 
-  console.log(hashtag);
   return (
     <>
       <Header />

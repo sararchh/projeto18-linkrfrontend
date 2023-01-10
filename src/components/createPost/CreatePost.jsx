@@ -23,7 +23,7 @@ export default function CreatePost({newPost, setNewPost, dadosUser}) {
         setLoading(true)
 
         const token = localStorage.getItem("token");
-    console.log(token)
+  
 
     const config = {
         headers: {
@@ -39,7 +39,7 @@ export default function CreatePost({newPost, setNewPost, dadosUser}) {
         requisicao.then(resposta => {
             setLoading(false)
             const dados = resposta.data
-            console.log({dados})
+           
             setNewPost(!newPost)
             setContent('')
             setUrl('')
@@ -48,7 +48,7 @@ export default function CreatePost({newPost, setNewPost, dadosUser}) {
         requisicao.catch(erro => {
             alert('Houve um erro ao publicar seu link')
             setLoading(false)
-            console.log(erro.response.data);
+            // console.log(erro.response.data);
         });
 
 
