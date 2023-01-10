@@ -13,8 +13,6 @@ export default function LikePost({ i, post, clicked, setClicked, whoLiked }) {
 
   const usersLiked = whoLiked.filter((w) => post.postId === w.postId);
 
-  console.log(usersLiked)
-
   const token = localStorage.getItem("token");
 
   const config = {
