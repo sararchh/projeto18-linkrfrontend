@@ -5,6 +5,7 @@ import Home from '../pages/home';
 
 import SignIn from '../pages/signIn';
 import SignUp from '../pages/signUp';
+import UserById from '../pages/user';
 
 
 const NotFound = () => {
@@ -21,8 +22,10 @@ function RoutesApp() {
         <Route path='/' element={<SignIn />} />
         <Route path='/timeline' element={<Home />} />
         <Route path='/sign-up' element={<SignUp />} />
-        <Route path='*' element={<NotFound />} />
+        <Route path='/user' element={<UserById />} />
         <Route path='/hashtag/:hashtag' element={<Hashtag />} />
+
+        <Route path='*' element={<NotFound />} />
       </Routes>
     </>
   )

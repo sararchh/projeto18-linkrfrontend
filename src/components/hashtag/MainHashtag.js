@@ -6,6 +6,8 @@ import { Feed, MainContainer, TrendingListStyles } from "./styles";
 import { useNavigate } from "react-router-dom";
 import Post from "../post/Post";
 
+
+
 export default function MainHashtag({ hashtag }) {
   const [posts, setPosts] = useState([]);
   const [newPost, setNewPost] = useState(false);
@@ -20,6 +22,7 @@ export default function MainHashtag({ hashtag }) {
 
   useEffect(() => {
     const token = localStorage.getItem("token");
+
 
     if (!token) {
       navigate("/");

@@ -38,11 +38,16 @@ svg {
 }
 `
 export const Profile = styled.div`
-background: red;
 border-radius: 26.5px;
 width: 53px;
 height: 53px;
 margin-right: 40px;
+
+img {
+    width: 53px;
+    height: 53px;
+    border-radius: 26.5px;
+}
 `
 
 export const Menu = styled.div`

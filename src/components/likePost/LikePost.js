@@ -62,7 +62,7 @@ export default function LikePost({ i, post, clicked, setClicked, whoLiked }) {
     );
 
     promise.then((res) => {
-      console.log("Foiii");
+     
       clicked === true ? setClicked(false) : setClicked(true);
     });
     promise.catch((err) => console.log(err.responde.data));

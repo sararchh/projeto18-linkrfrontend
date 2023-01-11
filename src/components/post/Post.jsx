@@ -42,7 +42,9 @@ const customStyles = {
     },
 };
 
+
 export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPost, newPost, dadosUser, clickedHashtag, setClickedHashtag }) {
+
     let subtitle;
     let botoes;
     let botaoNao;
@@ -79,7 +81,7 @@ export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPos
         setLoading(true)
         const requisicao = api.delete(`/timeline/${post.postId}`, config);
         requisicao.then((resposta) => {
-            console.log(resposta.data)
+         
             setNewPost(!newPost)
             closeModal()
             setLoading(false)
@@ -166,7 +168,7 @@ export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPos
                 </ContainerLeft>
                 <PostContent>
                     <TextLine>
-                    <Text>{post.username}</Text>
+                    <Text onClick={()=>navigate(`/user?id=${post.userId}`)}>{post.username}</Text> 
                     {yourPost
                         ? (
                             <IconContainer>
@@ -195,7 +197,6 @@ export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPos
                         <RightSide src={post.image}>
                        
                         </RightSide>
-                        
                         
                     </UrlContainer>
                 </PostContent>
