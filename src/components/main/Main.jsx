@@ -48,6 +48,7 @@ export default function Main() {
       setWhoLiked(resposta.data.likes);
       setDadosUser(resposta.data.dadosUser)
       setTrendindList(resposta.data.trendingList)
+
     });
     promise.catch((resposta) => {
       alert(

@@ -21,8 +21,9 @@ function UserById() {
   const [clicked, setClicked] = useState(0);
   const [whoLiked, setWhoLiked] = useState(0);
   const [dadosUser, setDadosUser] = useState('');
+  const [usernameLogged, setUsernameLogged] = useState('');
 
-  const { setTrendindList, trendingList, handleDataUsersPosts } = useContext(UserContext);
+  const { trendingList, handleDataUsersPosts } = useContext(UserContext);
 
   useEffect(() => {
     handleDataUsersPosts();
@@ -32,16 +33,16 @@ function UserById() {
   const handleSearchedUserPosts = async () => {
     try {
       const { data } = await api.get(`/users/post/${idOperation}`);
-      setPosts(data?.userPosts);
+      setPosts(data?.posts);
       setDadosUser(data?.username);
-      setWhoLiked(data?.likes) 
+      setWhoLiked(data?.likes);
+      setUsernameLogged(data?.username);
+
     } catch (error) {
-      console.log("error sara", error);
       toast.error("Erro ao buscar dados")
     }
   }
 
-  console.log({posts});
 
   return (
     <MainContainer>
@@ -49,13 +50,9 @@ function UserById() {
       <Feed>
 
         <div>
+          <p className="text-feed">{usernameLogged} posts</p>
 
-          <p className="text-feed">timeline</p>
-
-
-          {posts.length === 0
-            ? "There are no posts yet"
-            : posts.map((post, i) => {
+          {posts.length > 0 && posts.map((post, i) => {
               return (
                 <Post
                   key={i}
@@ -71,11 +68,11 @@ function UserById() {
               );
             })}
 
-          <TrendingListStyles>
-            <TrendingList trendingList={trendingList} />
-          </TrendingListStyles>
-
         </div>
+        <TrendingListStyles>
+          <TrendingList trendingList={trendingList} />
+        </TrendingListStyles>
+
       </Feed>
     </MainContainer>
   );

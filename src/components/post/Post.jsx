@@ -44,6 +44,7 @@ const customStyles = {
 
 export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPost, newPost, dadosUser }) {
 
+    // console.log("timeline",post);
 
     let subtitle;
     let botoes;
