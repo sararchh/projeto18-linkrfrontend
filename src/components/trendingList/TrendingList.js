@@ -6,8 +6,8 @@ export default function TrendingList({ trendingList }) {
     <>
       <h1>trending</h1>
 
-      {trendingList.map((t) => (
-        <Link to={`/hashtag/${t.name}`}> <p># {t.name}</p> </Link>
+      {trendingList.map((t, i) => (
+        <Link to={`/hashtag/${t.name}`} key={i}> <p># {t.name}</p> </Link>
 
       ))}
     </>

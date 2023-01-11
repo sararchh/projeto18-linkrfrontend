@@ -51,9 +51,9 @@ export default function Main() {
 
     });
     promise.catch((resposta) => {
-      alert(
-        "An error occured while trying to fetch the posts, please refresh the page"
-      );
+      // alert(
+      //   "An error occured while trying to fetch the posts, please refresh the page"
+      // );
     });
   }, [newPost, clicked]);
 
