@@ -4,6 +4,7 @@ import LikePost from "../likePost/LikePost";
 import ReactModal from "react-modal";
 import { ReactTagify } from "react-tagify";
 import { useNavigate } from "react-router-dom";
+import { useRef } from "react";
 
 import {
     PostContainer,
@@ -53,7 +54,13 @@ export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPos
     const [content, setContent] = useState('')
     let yourPost;
     const navigate = useNavigate();
-
+    const nameRef = useRef();
+    const focus = () => {
+        nameRef.current.focus();
+      }
+    const blur = () => {
+        nameRef.current.blur();
+      }
     
 
     function clickHashtag(h) {
@@ -66,7 +73,6 @@ export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPos
     } else yourPost = false
 
     const token = localStorage.getItem("token");
-
 
     const config = {
         headers: {
@@ -91,7 +97,11 @@ export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPos
         });
     }
 
-    
+    function edit() {
+        setEditing(true)
+        focus()
+    }
+
     function confirmEdit() {
        
         const requisicao = api.post(`/timeline/${post.postId}`,{
@@ -170,7 +180,7 @@ export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPos
                         ? (
                             <IconContainer>
                             <Icon onClick={openModal}><ion-icon name="trash"></ion-icon></Icon>
-                            <Icon onClick={()=> setEditing(true)}><ion-icon name="create"></ion-icon></Icon>
+                            <Icon onClick={edit}><ion-icon name="create"></ion-icon></Icon>
                             </IconContainer>
                         ) : <></>
                     }</TextLine>
@@ -178,7 +188,7 @@ export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPos
                         ?
                         
                         <Form onSubmit={confirmEdit}>
-                            <Input  type="text" placeholder="" value={content} onChange={e => setContent(e.target.value)} />
+                            <Input ref={nameRef} type="text" placeholder="" value={content} onChange={e => setContent(e.target.value)} />
                         </Form>
                         :
                         (<ReactTagify tagClicked={clickHashtag}><h1>{post.content}</h1></ReactTagify>)
