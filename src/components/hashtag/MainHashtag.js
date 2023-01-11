@@ -6,8 +6,6 @@ import { Feed, MainContainer, TrendingListStyles } from "./styles";
 import { useNavigate } from "react-router-dom";
 import Post from "../post/Post";
 
-
-
 export default function MainHashtag({ hashtag }) {
   const [posts, setPosts] = useState([]);
   const [newPost, setNewPost] = useState(false);
@@ -15,14 +13,13 @@ export default function MainHashtag({ hashtag }) {
   const [whoLiked, setWhoLiked] = useState(undefined);
   const [trendingList, setTrendindList] = useState(undefined);
   const [dadosUser, setDadosUser] = useState("");
-  const [clickedHashtag, setClickedHashtag] = useState(false)
-
+  const [clickedHashtag, setClickedHashtag] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-
 
     if (!token) {
       navigate("/");
@@ -37,6 +34,7 @@ export default function MainHashtag({ hashtag }) {
         Authorization: `Bearer ${token}`,
       },
     };
+    setLoading(true);
     const promise = api.get(`/hashtag/${hashtag}`, config);
 
     promise.then((resposta) => {
@@ -44,7 +42,7 @@ export default function MainHashtag({ hashtag }) {
       setWhoLiked(resposta.data.likes);
       setDadosUser(resposta.data.dadosUser);
       setTrendindList(resposta.data.trendingList);
-      console.log(resposta.data);
+      setLoading(false);
     });
 
     promise.catch((res) => {
@@ -52,17 +50,19 @@ export default function MainHashtag({ hashtag }) {
     });
   }, [hashtag]);
 
-  if (posts === null) {
+  if(loading === true  ) {
     return (
+      <MainContainer>
         <Feed>
-            <p>Carregando...</p>
+          <div>
+            <p className="text-feed"> Carregando...</p>
+          </div>
         </Feed>
-    );
-  }
-  if (dadosUser === "") {
-    return "carregando...";
-  }
+      </MainContainer>
+    )
 
+
+  }
   return (
     <MainContainer>
       <Feed>
