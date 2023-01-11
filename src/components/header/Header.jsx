@@ -17,9 +17,11 @@ export default function Header() {
     const [openMenu, setOpenMenu] = useState(false);
     const [inputSearch, setInputSearch] = useState();
     const [users, setUsers] = useState([]);
+    const [pictureURL, setPictureURL] = useState();
 
     useEffect(() => {
         getUsers();
+
     }, [inputSearch]);
 
     const handleLogout = () => {
@@ -30,7 +32,8 @@ export default function Header() {
     const getUsers = async () => {
         try {
             const users = await api.get(`users/${inputSearch}`);
-            console.log(users?.data);
+            const imgUser = localStorage.getItem("picture");
+            setPictureURL(imgUser);
             setUsers(users);
         } catch (error) {
             return toast.error('Usuário não encontrado!')
@@ -56,7 +59,7 @@ export default function Header() {
                         {users?.data?.length > 0 && users?.data.map((i) => (
                             <div className="cardAvatar">
                                 <img src={i.pictureUrl} alt='Avatar do usuário' />
-                                <p>{i.username}</p>
+                                <p onClick={()=>navigate(`/user?id=${users?.data[0]?.id}`)}>{i.username}</p>
                             </div>
                         ))}
                     </Card>
@@ -67,7 +70,9 @@ export default function Header() {
                         {openMenu ? <MdKeyboardArrowUp /> : <MdKeyboardArrowDown />}
 
                     </Icon>
-                    <Profile onClick={() => setOpenMenu(false)}></Profile>
+                    <Profile onClick={() => setOpenMenu(false)}>
+                        <img src={pictureURL} alt="avatar usuário" />
+                    </Profile>
                 </div>
 
                 {openMenu &&

@@ -38,7 +38,7 @@ export default function Form() {
  
             try {
                 const users = await api.post(`/sign-up`, body);
-                console.log(users?.data);
+             
   
             } catch (error) {
                 console.log(error);

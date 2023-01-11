@@ -36,7 +36,8 @@ export default function Form() {
         await api.post(`/sign-in`, body)
             .then(res => {
                 setIsDisabled(false)
-                localStorage.setItem("token", res.data)
+                localStorage.setItem("token", res.data.token)
+                localStorage.setItem("picture", res.data.user)
                 navigate("/timeline")
             })
             .catch(err => {
