@@ -42,9 +42,8 @@ const customStyles = {
     },
 };
 
-export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPost, newPost, dadosUser }) {
 
-    // console.log("timeline",post);
+export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPost, newPost, dadosUser, clickedHashtag, setClickedHashtag }) {
 
     let subtitle;
     let botoes;
@@ -62,6 +61,7 @@ export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPos
     function clickHashtag(h) {
         const hashtag = h.replace("#", "")
         navigate(`/hashtag/${hashtag}`)
+        setClickedHashtag(!clickedHashtag);
     }
 
     if (dadosUser.id === post.id) {
