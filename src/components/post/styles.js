@@ -117,7 +117,7 @@ h3{
     font-family: 'Lato';
     font-style: normal;
     font-weight: 400;
-    font-size: 9px;
+    font-size:11px;
     line-height: 11px;
     color: #CECECE;
     margin-bottom: 2px;
