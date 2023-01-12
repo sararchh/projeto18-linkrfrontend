@@ -44,6 +44,7 @@ export default function FollowUnfollow({ followed, setFollowed, id }) {
 
     promise.catch((err) => {
       console.log(err);
+      alert("An error occured while trying to follow the user")
       setLoading(false);
     });
   }
