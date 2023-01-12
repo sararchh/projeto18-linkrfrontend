@@ -5,7 +5,7 @@ import axios from "axios";
 import Post from "../post/Post";
 
 import CreatePost from "../createPost/CreatePost";
-import { Feed, MainContainer, TrendingListStyles } from "./styles";
+import { Feed, MainContainer, TextTimeline, TrendingListStyles } from "./styles";
 import TrendingList from "../trendingList/TrendingList";
 import api from "../../services/api";
 import { UserContext } from "../../contexts/userContext";
@@ -18,7 +18,9 @@ export default function Main() {
   const [whoLiked, setWhoLiked] = useState(undefined);
   const [dadosUser, setDadosUser] = useState('');
 
+  const [usersFollowed, setUsersFollowed] = useState(undefined);
   const { setTrendindList, trendingList } = useContext(UserContext);
+
 
 
   const navigate = useNavigate();
@@ -48,12 +50,13 @@ export default function Main() {
       setWhoLiked(resposta.data.likes);
       setDadosUser(resposta.data.dadosUser)
       setTrendindList(resposta.data.trendingList)
-
+      setUsersFollowed(resposta.data.usersFollowed)
+      
     });
     promise.catch((resposta) => {
-      // alert(
-      //   "An error occured while trying to fetch the posts, please refresh the page"
-      // );
+      alert(
+        "An error occured while trying to fetch the posts, please refresh the page"
+      );
     });
   }, [newPost, clicked]);
 
@@ -64,6 +67,8 @@ export default function Main() {
     return "carregando...";
   }
 
+  console.log(usersFollowed)
+
   return (
     <MainContainer>
       <Feed>
@@ -73,7 +78,9 @@ export default function Main() {
           <CreatePost newPost={newPost} setNewPost={setNewPost} dadosUser={dadosUser[0]} />
          
           {posts.length === 0
-            ? "There are no posts yet"
+            ? (usersFollowed.length === 0 
+              ? (<TextTimeline>You don't follow anyone yet. Search for new friends!</TextTimeline>) 
+              : (<TextTimeline>No posts found from your friends</TextTimeline>)) 
             : posts.map((post, i) => {
               return (
                 <Post

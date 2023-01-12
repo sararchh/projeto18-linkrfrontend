@@ -24,6 +24,11 @@ display: flex;
   }
 `;
 
+export const TextTimeline = styled.div`
+  color: #ffffff;
+
+`
+
 export const TrendingListStyles= styled.div`
     width: 301px;
     height: 406px;
