@@ -22,6 +22,12 @@ display: flex;
     line-height: 64px;
     color: #ffffff;
   }
+
+  .styledContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: end;
+  }
 `;
 
 export const TrendingListStyles = styled.div`
@@ -48,5 +54,9 @@ export const TrendingListStyles = styled.div`
       width: 100%;
       background-color: var(--text);
       margin-bottom: 20px;
+    }
+
+    p {
+      cursor: pointer;
     }
 `

@@ -49,4 +49,8 @@ export const TrendingListStyles = styled.div`
       background-color: var(--text);
       margin-bottom: 20px;
     }
+
+    p {
+      cursor: pointer;
+    }
 `

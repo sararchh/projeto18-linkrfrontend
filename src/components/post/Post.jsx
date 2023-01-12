@@ -215,7 +215,7 @@ export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPos
                         <LeftSide>
                         <h2>{post.title} </h2>
                         <h4>{post.description} </h4>
-                        <a href={post.url} target="_blank"> <h3>{post.url} </h3> </a>
+                        <a href={post.url} target="_blank" rel="noreferrer"> <h3>{post.url} </h3> </a>
                         </LeftSide>
                         <RightSide src={post.image}>
                        
