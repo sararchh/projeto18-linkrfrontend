@@ -24,11 +24,29 @@ display: flex;
   }
 `;
 
-export const TrendingListStyles= styled.div`
+export const TrendingListStyles = styled.div`
+    min-width: 301px;
     width: 301px;
     height: 406px;
     border-radius: 16px;
     background-color: #171717;
     color: white;
 
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    padding: 20px;
+    margin-left: 20px;
+    margin-top: 78px;
+
+    h1 {
+      margin-bottom: 20px;
+    }
+
+    hr {
+      width: 100%;
+      background-color: var(--text);
+      margin-bottom: 20px;
+    }
 `
