@@ -4,7 +4,6 @@ import LikePost from "../likePost/LikePost";
 import ReactModal from "react-modal";
 import { ReactTagify } from "react-tagify";
 import { useNavigate } from "react-router-dom";
-
 import {
     PostContainer,
     PostContent,
@@ -20,7 +19,7 @@ import {
     LeftSide,
     RightSide
 } from "./styles";
-import { useState } from "react";
+import React, {  useState, useRef } from "react";
 import api from "../../services/api";
 
 const customStyles = {
@@ -53,9 +52,18 @@ export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPos
     const [loading, setLoading] = useState(false)
     const [editing, setEditing] = useState(false)
     const [content, setContent] = useState('')
+    const [disabled, setDisabled] = useState(false)
+    
     let yourPost;
     const navigate = useNavigate();
-
+    const nameRef = useRef();
+    console.log(nameRef.current)
+    const focus = () => {
+        nameRef.current.focus();
+      }
+    const blur = () => {
+        nameRef.current.blur();
+      }
     
 
     function clickHashtag(h) {
@@ -69,7 +77,6 @@ export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPos
     } else yourPost = false
 
     const token = localStorage.getItem("token");
-
 
     const config = {
         headers: {
@@ -94,9 +101,14 @@ export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPos
         });
     }
 
-    
+    function edit() {
+        setEditing(!editing)
+        setContent(post.content)
+        setTimeout(focus, 500)
+    }
+
     function confirmEdit() {
-       
+       setDisabled(true)
         const requisicao = api.post(`/timeline/${post.postId}`,{
             content: content,
         }, config);
@@ -104,11 +116,14 @@ export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPos
             console.log(resposta.data)
             setNewPost(!newPost)
             setEditing(false)
+            setDisabled(false)
+            
         });
         requisicao.catch((resposta) => {
             alert(
                 "An error occured while trying to edit the post"
             );
+            setDisabled(false)
         });
     }
 
@@ -158,6 +173,17 @@ export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPos
         setIsOpen(false);
     }
 
+    function handleKeyPress(e) {
+        const key = e.key;
+        console.log( "You pressed a key: " + key );
+        if (key == "Enter") {
+            confirmEdit()
+        }
+        if (key === "Escape") {
+            setEditing(false)
+        }
+        
+    }
 
     return (
         <>
@@ -173,16 +199,13 @@ export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPos
                         ? (
                             <IconContainer>
                             <Icon onClick={openModal}><ion-icon name="trash"></ion-icon></Icon>
-                            <Icon onClick={()=> setEditing(true)}><ion-icon name="create"></ion-icon></Icon>
+                            <Icon onClick={edit}><ion-icon name="create"></ion-icon></Icon>
                             </IconContainer>
                         ) : <></>
                     }</TextLine>
                     {editing
                         ?
-                        
-                        <Form onSubmit={confirmEdit}>
-                            <Input  type="text" placeholder="" value={content} onChange={e => setContent(e.target.value)} />
-                        </Form>
+                            <Input onKeyDown={(e)=> handleKeyPress(e)} onKeyPress={(e) => handleKeyPress(e)} ref={nameRef} type="text" placeholder="" value={content} onChange={e => setContent(e.target.value)} disabled = {disabled} />
                         :
                         (<ReactTagify tagClicked={clickHashtag}><h1>{post.content}</h1></ReactTagify>)
                         
@@ -192,7 +215,7 @@ export default function Post({ i, post, clicked, setClicked, whoLiked, setNewPos
                         <LeftSide>
                         <h2>{post.title} </h2>
                         <h4>{post.description} </h4>
-                        <h3>{post.url} </h3>
+                        <a href={post.url} target="_blank" rel="noreferrer"> <h3>{post.url} </h3> </a>
                         </LeftSide>
                         <RightSide src={post.image}>
                        
