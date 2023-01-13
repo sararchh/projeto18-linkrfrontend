@@ -88,7 +88,7 @@ function UserById() {
             })}
 
         </div>
-        <div> 
+        <div className='styledContainer'> 
           <FollowUnfollow followed={followed} setFollowed={setFollowed} id={idOperation}/>
           
           <TrendingListStyles>

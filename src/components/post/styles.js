@@ -40,7 +40,7 @@ export const Text = styled.div`
     line-height: 23px;
     color: #FFFFFF;
     margin-bottom: 7px;
-   
+    cursor: pointer;
 `;
 
 
