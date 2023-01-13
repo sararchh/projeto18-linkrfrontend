@@ -18,6 +18,7 @@ export default function Header() {
     const [inputSearch, setInputSearch] = useState();
     const [users, setUsers] = useState([]);
     const [pictureURL, setPictureURL] = useState();
+    const [userId, setUserId] =useState(undefined);
 
     useEffect(() => {
         getUsers();
@@ -34,11 +35,14 @@ export default function Header() {
             const users = await api.get(`users/${inputSearch}`);
             const imgUser = localStorage.getItem("picture");
             setPictureURL(imgUser);
-            setUsers(users);
+            setUsers(users.data.selectedUsers);
+            setUserId(users.data.userId)
         } catch (error) {
             return toast.error('Usuário não encontrado!')
         }
     }
+
+    console.log(users)
 
     return (
         <>
@@ -56,10 +60,11 @@ export default function Header() {
                     <BsSearch />
 
                     <Card>
-                        {users?.data?.length > 0 && users?.data.map((i) => (
-                            <div className="cardAvatar">
+                        {users?.length > 0 && users?.map((i) => (
+                            <div key={i.id} className="cardAvatar">
                                 <img src={i.pictureUrl} alt='Avatar do usuário' />
-                                <p onClick={()=>navigate(`/user?id=${users?.data[0]?.id}`)}>{i.username}</p>
+                                <p onClick={()=>navigate(`/user?id=${users?.data.selectedUsers[0]?.id}`)}>{i.username} </p>
+                                {(userId === i.followsUserId ) ? (<span>  ●  following</span>) :""}
                             </div>
                         ))}
                     </Card>

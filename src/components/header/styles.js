@@ -127,13 +127,18 @@ export const Card = styled.div`
        width: 563px;
        height: auto;
 
-       background-color: var(--text);
+       background-color: #E7E7E7;
 
        border-radius: 8px;
        margin-top: -12px;
 
        display: flex;
        flex-direction: column;
+
+       span {
+        color:#C5C5C5;
+        margin-left: 5px;
+       }
 
        .cardAvatar {
         width: 500px;
