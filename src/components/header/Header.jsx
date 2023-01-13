@@ -42,8 +42,6 @@ export default function Header() {
         }
     }
 
-    console.log(users)
-
     return (
         <>
             <HeaderContainer >
@@ -60,10 +58,10 @@ export default function Header() {
                     <BsSearch />
 
                     <Card>
-                        {users?.length > 0 && users?.map((i) => (
-                            <div key={i.id} className="cardAvatar">
+                        {users?.length > 0 && users?.map((i, idx) => (
+                            <div key={idx} className="cardAvatar">
                                 <img src={i.pictureUrl} alt='Avatar do usuário' />
-                                <p onClick={()=>navigate(`/user?id=${users?.data.selectedUsers[0]?.id}`)}>{i.username} </p>
+                                <p onClick={()=>navigate(`/user?id=${users[0]?.userId}`)}>{i.username} </p>
                                 {(userId === i.followsUserId ) ? (<span>  ●  following</span>) :""}
                             </div>
                         ))}
